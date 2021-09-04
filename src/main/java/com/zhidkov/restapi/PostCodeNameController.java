@@ -19,7 +19,7 @@ public class PostCodeNameController {
     }
 
     @GetMapping("/postcodename")
-    public PostCodeName getPostCodeName(@RequestParam(value = "postcode", defaultValue = "1") int postCode) {
+    public PostCodeName getPostCodeName(@RequestParam(value = "postcode", defaultValue = "0") int postCode) {
         Optional<PostCodeName> result = Arrays.stream(postCodeNames).filter(x -> x.getPostCode() == postCode).findAny();
         return result.get();
     }
@@ -27,5 +27,11 @@ public class PostCodeNameController {
     @PostMapping("/postcodename")
     public void setPostCodeNames(@RequestBody PostCodeName[] newPostCodeNames) {
         postCodeNames = newPostCodeNames;
+    }
+
+    @GetMapping("/postcodenames")
+    public PostCodeName[] getPostCodeNames(@RequestParam(value = "from", defaultValue = "0") int fromPostCode,
+            @RequestParam(value = "to", defaultValue = "0") int toPostCode) {
+        return postCodeNames;
     }
 }

@@ -22,7 +22,7 @@ public class PostCodeNameControllerTests {
     }
 
     @Test
-    public void setAndGetPostCodeName() {
+    public void setAndGetPostCodeNameTwo() {
         PostCodeName[] newPostCodeNames = new PostCodeName[] { new PostCodeName(1, "One"), new PostCodeName(2, "Two"),
                 new PostCodeName(3, "Three") };
         postCodeNameController.setPostCodeNames(newPostCodeNames);
@@ -31,6 +31,17 @@ public class PostCodeNameControllerTests {
 
         assertEquals(2, result.getPostCode());
         assertEquals("Two", result.getName());
+    }
+
+    @Test
+    public void setAndGetAllPostCodeNames() {
+        PostCodeName[] newPostCodeNames = new PostCodeName[] { new PostCodeName(1, "One"), new PostCodeName(2, "Two"),
+                new PostCodeName(3, "Three") };
+        postCodeNameController.setPostCodeNames(newPostCodeNames);
+
+        PostCodeName[] result = postCodeNameController.getPostCodeNames(0, 0);
+
+        assertEquals(3, result.length);
     }
 
 }
