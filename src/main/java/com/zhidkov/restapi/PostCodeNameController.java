@@ -24,7 +24,7 @@ public class PostCodeNameController {
         return result.get();
     }
 
-    @PostMapping("/postcodename")
+    @PostMapping("/postcodenames")
     public void setPostCodeNames(@RequestBody PostCodeName[] newPostCodeNames) {
         postCodeNames = newPostCodeNames;
     }
@@ -32,6 +32,11 @@ public class PostCodeNameController {
     @GetMapping("/postcodenames")
     public PostCodeName[] getPostCodeNames(@RequestParam(value = "from", defaultValue = "0") int fromPostCode,
             @RequestParam(value = "to", defaultValue = "0") int toPostCode) {
-        return postCodeNames;
+
+        PostCodeName[] result = Arrays.stream(postCodeNames)
+                .filter(x -> x.getPostCode() >= fromPostCode && x.getPostCode() <= toPostCode)
+                .toArray(PostCodeName[]::new);
+
+        return result;
     }
 }
