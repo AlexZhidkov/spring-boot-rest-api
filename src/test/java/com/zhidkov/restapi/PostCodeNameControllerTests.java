@@ -15,8 +15,17 @@ public class PostCodeNameControllerTests {
 
     @Test
     public void getTestPostCodeName() {
-        PostCodeName result = postCodeNameController.postCodeName(3);
+        PostCodeName result = postCodeNameController.getPostCodeName(3);
         assertEquals("TEST", result.getName());
+    }
+
+    @Test
+    public void setAndGetPostCodeName() {
+        PostCodeName newPostCodeName = new PostCodeName(2, "Two");
+        postCodeNameController.setPostCodeNames(newPostCodeName);
+        PostCodeName result = postCodeNameController.getPostCodeName(3);
+        assertEquals(2, result.getPostCode());
+        assertEquals("Two", result.getName());
     }
 
 }
