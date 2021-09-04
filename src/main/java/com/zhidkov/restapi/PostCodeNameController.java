@@ -1,5 +1,8 @@
 package com.zhidkov.restapi;
 
+import java.util.Arrays;
+import java.util.Optional;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,19 +12,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class PostCodeNameController {
 
-    private PostCodeName postCodeName;
+    private PostCodeName[] postCodeNames;
 
     PostCodeNameController() {
-        postCodeName = new PostCodeName(0, "TEST");
+        postCodeNames = new PostCodeName[0];
     }
 
     @GetMapping("/postcodename")
     public PostCodeName getPostCodeName(@RequestParam(value = "postcode", defaultValue = "1") int postCode) {
-        return postCodeName;
+        Optional<PostCodeName> result = Arrays.stream(postCodeNames).filter(x -> x.getPostCode() == postCode).findAny();
+        return result.get();
     }
 
     @PostMapping("/postcodename")
-    public void setPostCodeNames(@RequestBody PostCodeName newPostCodeName) {
-        postCodeName = newPostCodeName;
+    public void setPostCodeNames(@RequestBody PostCodeName[] newPostCodeNames) {
+        postCodeNames = newPostCodeNames;
     }
 }

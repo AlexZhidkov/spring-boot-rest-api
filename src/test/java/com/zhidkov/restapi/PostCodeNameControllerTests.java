@@ -1,6 +1,7 @@
 package com.zhidkov.restapi;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,15 +16,19 @@ public class PostCodeNameControllerTests {
 
     @Test
     public void getTestPostCodeName() {
-        PostCodeName result = postCodeNameController.getPostCodeName(3);
-        assertEquals("TEST", result.getName());
+        assertThrows(java.util.NoSuchElementException.class, () -> {
+            postCodeNameController.getPostCodeName(3);
+        });
     }
 
     @Test
     public void setAndGetPostCodeName() {
-        PostCodeName newPostCodeName = new PostCodeName(2, "Two");
-        postCodeNameController.setPostCodeNames(newPostCodeName);
-        PostCodeName result = postCodeNameController.getPostCodeName(3);
+        PostCodeName[] newPostCodeNames = new PostCodeName[] { new PostCodeName(1, "One"), new PostCodeName(2, "Two"),
+                new PostCodeName(3, "Three") };
+        postCodeNameController.setPostCodeNames(newPostCodeNames);
+
+        PostCodeName result = postCodeNameController.getPostCodeName(2);
+
         assertEquals(2, result.getPostCode());
         assertEquals("Two", result.getName());
     }
