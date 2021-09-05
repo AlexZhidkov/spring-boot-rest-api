@@ -1,7 +1,9 @@
 package com.zhidkov.restapi;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,13 +32,13 @@ public class PostCodeNameController {
     }
 
     @GetMapping("/postcodenames")
-    public PostCodeName[] getPostCodeNames(@RequestParam(value = "from", defaultValue = "0") int fromPostCode,
+    public Response getPostCodeNames(@RequestParam(value = "from", defaultValue = "0") int fromPostCode,
             @RequestParam(value = "to", defaultValue = "0") int toPostCode) {
 
-        PostCodeName[] result = Arrays.stream(postCodeNames)
-                .filter(x -> x.getPostCode() >= fromPostCode && x.getPostCode() <= toPostCode)
-                .toArray(PostCodeName[]::new);
+        List<String> names = Arrays.stream(postCodeNames)
+                .filter(x -> x.getPostCode() >= fromPostCode && x.getPostCode() <= toPostCode).map(x -> x.getName())
+                .collect(Collectors.toList());
 
-        return result;
+        return new Response(names);
     }
 }
