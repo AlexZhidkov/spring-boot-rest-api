@@ -9,6 +9,7 @@ public class Response {
     public Response(List<String> postcodeNames) {
         totalLength = 0;
         postcodeNames.forEach(e -> totalLength += e.length());
+        java.util.Collections.sort(postcodeNames);
         names = postcodeNames;
     }
 
