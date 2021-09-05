@@ -31,3 +31,7 @@ POST http://localhost:8080/postcodenames
 
 GET http://localhost:8080/postcodenames?from=2&to=4
 
+### Deployment
+Deployed to Azure App Service
+
+https://az-java-rest-api.azurewebsites.net/postcodenames
