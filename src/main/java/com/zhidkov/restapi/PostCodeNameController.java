@@ -2,7 +2,6 @@ package com.zhidkov.restapi;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,12 +17,6 @@ public class PostCodeNameController {
 
     PostCodeNameController() {
         postCodeNames = new PostCodeName[0];
-    }
-
-    @GetMapping("/postcodename")
-    public PostCodeName getPostCodeName(@RequestParam(value = "postcode", defaultValue = "0") int postCode) {
-        Optional<PostCodeName> result = Arrays.stream(postCodeNames).filter(x -> x.getPostCode() == postCode).findAny();
-        return result.get();
     }
 
     @PostMapping("/postcodenames")
