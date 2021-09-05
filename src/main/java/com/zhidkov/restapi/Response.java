@@ -1,14 +1,17 @@
 package com.zhidkov.restapi;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Response {
-    private int totalLength;
+    private final int totalLength;
     private final List<String> names;
 
     public Response(List<String> postcodeNames) {
-        totalLength = 0;
-        postcodeNames.forEach(e -> totalLength += e.length());
+        AtomicInteger total = new AtomicInteger(0);
+        postcodeNames.forEach(e -> total.accumulateAndGet(e.length(), (x, y) -> (x + y)));
+        totalLength = total.intValue();
+
         java.util.Collections.sort(postcodeNames);
         names = postcodeNames;
     }
